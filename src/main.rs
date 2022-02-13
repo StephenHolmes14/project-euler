@@ -1,7 +1,7 @@
 #![feature(slice_take)]
 
-#[path = "challenges/project_euler_20.rs"] mod project_euler_20;
+#[path = "challenges/project_euler_21.rs"] mod project_euler_21;
 
 fn main() {
-    project_euler_20::project_euler_20();
+    project_euler_21::project_euler_21();
 }
