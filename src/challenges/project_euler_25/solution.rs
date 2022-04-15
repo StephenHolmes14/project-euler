@@ -48,5 +48,5 @@ pub fn calculate() {
 
     answer = current_fib_index;
 
-    println!("Project Euler 24: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+    println!("Project Euler 25: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }

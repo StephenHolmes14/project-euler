@@ -1,5 +1,5 @@
+use std::borrow::Borrow;
 use std::time::Instant;
-use crate::solution::vector_math_utils::divide;
 
 #[path = "../../utils/vector_maths_utils.rs"] mod vector_math_utils;
 
@@ -22,25 +22,62 @@ Find the value of d < 1000 for which 1/d contains the longest recurring cycle in
 pub fn calculate() {
     let start = Instant::now();
     let mut answer = 0;
+    let mut answer_length = 0;
 
-    let mut previous_fib: Vec<i32> = Vec::new();
-    previous_fib.push(1);
-    let mut current_fib: Vec<i32> = Vec::new();
-    current_fib.push(1);
-    let mut current_fib_index = 2; // This starts from 2 as both are 1
+    for i in 1..1000 {
+        let mut found_recursion = false;
 
-    while current_fib.len() < 1000 {
-        current_fib_index = current_fib_index + 1;
+        let mut current_value = String::new();
+        let mut current_carryover = 10;
+        let mut carryover_vector: Vec<i32> = Vec::new();
 
-        let new_fib = add(&previous_fib, &current_fib);
+        while !found_recursion {
+            let new_digit = current_carryover / i;
+            current_value += &new_digit.to_string();
 
-        println!("{}: {:?}", current_fib_index, new_fib);
+            current_carryover = (current_carryover % i) * 10;
+            carryover_vector.push(current_carryover);
 
-        previous_fib = current_fib.clone();
-        current_fib = new_fib.clone();
+            if current_carryover == 0 {
+                break;
+            }
+
+            let recursion_length = find_recursion_length(&current_value, &carryover_vector);
+
+            if recursion_length > 0 {
+                found_recursion = true;
+
+                if recursion_length > answer_length {
+                    answer = i;
+                    answer_length = recursion_length;
+                }
+            }
+        }
+
+        println!("i: {}, value: {}, current longest: {}", i, current_value, answer_length);
     }
 
-    answer = current_fib_index;
+    println!("Project Euler 26: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+}
 
-    println!("Project Euler 24: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+
+fn find_recursion_length(value: &String, carryover_vector: &Vec<i32>) -> i32 {
+    let mut current_possible_recursion = String::new();
+    let current_carryover = carryover_vector.get(carryover_vector.len() - 1).unwrap();
+
+    let mut reversed_value_chars = value.chars().clone().rev();
+
+    for i in 0..value.len() {
+        let c = reversed_value_chars.clone().nth(i).unwrap(); // this isn't right lol
+
+        if current_possible_recursion.len() > 0
+            && current_possible_recursion.chars().nth(0).unwrap().eq(&c)
+            && carryover_vector.get(carryover_vector.len() - 1 - i).unwrap().eq(current_carryover){
+            return current_possible_recursion.len() as i32;
+        }
+
+        current_possible_recursion.push(c);
+    }
+
+    return 0;
 }
