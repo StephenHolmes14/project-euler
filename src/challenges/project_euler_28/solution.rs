@@ -48,5 +48,5 @@ pub fn calculate() {
         }
     }
 
-    println!("Project Euler 26: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+    println!("Project Euler 28: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }

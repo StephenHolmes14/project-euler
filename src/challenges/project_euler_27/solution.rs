@@ -50,7 +50,7 @@ pub fn calculate() {
         }
     }
 
-    println!("Project Euler 26: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+    println!("Project Euler 27: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }
 
 fn count_primes(a: i64, b: i64) -> i64 {
