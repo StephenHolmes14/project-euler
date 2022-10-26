@@ -65,7 +65,7 @@ pub fn calculate() {
 
     answer = find_sum();
 
-    println!("Project Euler 30: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+    println!("Project Euler 32: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }
 
 pub fn find_sum() -> i32 {

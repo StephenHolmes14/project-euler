@@ -23,7 +23,7 @@ pub fn calculate() {
 
     answer = find_answer();
 
-    println!("Project Euler 30: {}, Time Taken: {}", answer, start.elapsed().as_secs());
+    println!("Project Euler 33: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }
 
 pub fn find_answer() -> i32 {
