@@ -1,13 +1,19 @@
 use std::borrow::Borrow;
 use std::time::Instant;
 
+#[path = "../../utils/binary_utils.rs"] mod binary_utils;
+#[path = "../../utils/palindrome_utils.rs"] mod palindrome_utils;
+
+use binary_utils::i32_to_binary_string;
+use palindrome_utils::is_palindrome_i32;
+use palindrome_utils::is_palindrome_string;
 
 ///
-/// The number, 197, is called a circular prime because all rotations of the digits: 197, 971, and 719, are themselves prime.
+/// The decimal number, 585 = 10010010012 (binary), is palindromic in both bases.
 //
-// There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, and 97.
+// Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.
 //
-// How many circular primes are there below one million?
+// (Please note that the palindromic number, in either base, may not include leading zeros.)
 ///
 
 pub fn calculate() {
@@ -19,30 +25,25 @@ pub fn calculate() {
     println!("Project Euler 36: {}, Time Taken: {}", answer, start.elapsed().as_secs());
 }
 
-pub fn find_answer() -> u32 {
-    let mut count = 0;
+pub fn find_answer() -> i32 {
+    let mut sum = 0;
 
-    // 9! = 362880
-    // That is 6 digits. If we check the 7 digit number 9999999, 362880 * 7 = 2540160 - which is much less, therefore it cannot be higher than 9999999
+    for x in 1..1000000 {
 
-    for x in 10..1000000 {
-        let x_string = x.to_string();
-
-        for shift in 1..x_string.chars().count() {
-            let new_x_string = x_string.
+        // If it isn't a palindrome continue to next value
+        if !is_palindrome_i32(x) {
+            continue;
         }
 
-        let sum: u32 = x_string.chars()
-            .map(|i| i.to_digit(10).unwrap())
-            .map(|i| factorial(i))
-            .sum();
+        // It it reaches here it must be a palindrome in base 10
+        // Convert to binary string then do another comparison
+        let x_binary_string = i32_to_binary_string(x);
 
-        if sum == x {
-            println!("Found: {}", x);
-            total_sum += sum;
+        if is_palindrome_string(&x_binary_string) {
+            sum += x;
         }
     }
 
-    total_sum
+    sum
 }
 
