@@ -1,6 +1,5 @@
 use std::ops::Add;
 use std::time::Instant;
-use std::fs;
 
 #[path = "../../utils/pandigital_utils.rs"] mod pandigital_utils;
 
