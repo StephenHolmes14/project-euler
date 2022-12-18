@@ -22,7 +22,15 @@ pub fn is_prime_i32(value: i32) -> bool {
     if value == 1 {
         return false;
     }
-
+    
+    if value == 2 {
+        return true;
+    }
+    
+    if value % 2 == 0 {
+        return false;
+    }
+    
     let sqrt = (value as f64).sqrt() as i32;
 
     for possible_factor in 2..(sqrt+1) {
