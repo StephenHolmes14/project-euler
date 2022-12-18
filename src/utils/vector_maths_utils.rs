@@ -64,3 +64,29 @@ pub fn power_i32(number: i32, power: i32) -> Vec<i32> {
 
     return return_vector;
 }
+
+pub fn convert_i32_to_vec(i: i32) -> Vec<i32> {
+    multiply_by_i32(&Vec::from([1]), i)
+}
+
+pub fn convert_vec_to_i32(vec: &Vec<i32>) -> i32 {
+    // This vector maths module treats the smaller numbers as lower index
+    // Therefore to convert we need to reverse the order
+    let string_i32: String = vec.iter()
+        .rev()
+        .map(|x| x.to_string())
+        .collect();
+
+    i32::from_str_radix(&string_i32, 10).unwrap()
+}
+
+pub fn convert_vec_to_u64(vec: &Vec<i32>) -> u64 {
+    // This vector maths module treats the smaller numbers as lower index
+    // Therefore to convert we need to reverse the order
+    let string_u64: String = vec.iter()
+        .rev()
+        .map(|x| x.to_string())
+        .collect();
+
+    u64::from_str_radix(&string_u64, 10).unwrap()
+}
