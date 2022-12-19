@@ -21,7 +21,7 @@ pub fn calculate() {
 
     answer = find_answer();
 
-    println!("Project Euler 47: {}, Time Taken: {}ms", answer, start.elapsed().as_millis());
+    println!("Project Euler 48: {}, Time Taken: {}ms", answer, start.elapsed().as_millis());
 }
 
 pub fn find_answer() -> u64 {
