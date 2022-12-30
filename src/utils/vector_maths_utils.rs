@@ -90,3 +90,13 @@ pub fn convert_vec_to_u64(vec: &Vec<i32>) -> u64 {
 
     u64::from_str_radix(&string_u64, 10).unwrap()
 }
+
+pub fn factorial(factorial: i32) -> Vec<i32> {
+    let mut factorial_vec = convert_i32_to_vec(factorial);
+
+    for i in 2..factorial {
+        factorial_vec = multiply_by_i32(&factorial_vec, i);
+    }
+
+    factorial_vec
+}
