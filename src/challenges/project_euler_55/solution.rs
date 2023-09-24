@@ -3,6 +3,12 @@ use std::time::Instant;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs;
 
+#[path = "../../utils/number_char_utils.rs"] mod number_char_utils;
+#[path = "../../utils/palindrome_utils.rs"] mod palindrome_utils;
+
+use number_char_utils::reverse_u128;
+use palindrome_utils::is_palindrome_u128;
+
 /// If we take
 // , reverse and add,
 // , which is palindromic.
@@ -27,12 +33,36 @@ use std::fs;
 //
 // NOTE: Wording was modified slightly on 24 April 2007 to emphasise the theoretical nature of Lychrel numbers.
 
-pub fn find_answer() -> u64 {
-    let all_hands_string = fs::read_to_string("src/challenges/project_euler_54/poker.txt").unwrap();
-    let games_won = all_hands_string.split("\n")
-        .map(|h| make_game_from_string(String::from(h)))
-        .filter(|g| does_player1_win(&g))
-        .count();
+pub fn calculate() {
+    let start = Instant::now();
+    let mut answer = 0;
 
-    games_won as u64
+    answer = find_answer();
+
+    println!("Project Euler 55: {}, Time Taken: {}ms", answer, start.elapsed().as_millis());
+}
+
+fn find_answer() -> u64 {
+    let mut count = 0;
+    // Max Iterations is 50
+    for n in 0..10000 {
+        if is_lychrel(n) {
+            count = count + 1;
+        }
+    }
+
+    10000 - count
+}
+
+fn is_lychrel(n: u128) -> bool {
+    let mut current= n;
+    for i in 0..50 {
+        current = current + reverse_u128(current);
+
+        if is_palindrome_u128(current) {
+            return true;
+        }
+    }
+
+    false
 }
