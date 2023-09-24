@@ -100,3 +100,7 @@ pub fn factorial(factorial: i32) -> Vec<i32> {
 
     factorial_vec
 }
+
+pub fn digit_sum(vec: &Vec<i32>) -> u128 {
+    vec.iter().map(|x| x.clone() as u128).sum::<u128>()
+}
