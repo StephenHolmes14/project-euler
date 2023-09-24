@@ -2,10 +2,6 @@ use std::ops::{Add, Div, Sub};
 use std::time::Instant;
 use std::collections::{BTreeSet, HashMap, HashSet};
 
-#[path = "../../utils/vector_maths_utils.rs"] mod vector_utils;
-
-use vector_utils::factorial;
-
 /// https://projecteuler.net/problem=53
 ///
 /// There are exactly ten ways of selecting three from five, 12345:
@@ -38,9 +34,10 @@ pub fn calculate() {
 
 pub fn find_answer() -> u64 {
     // n!/(r!(n-r)!)
-    // Combinations always have a peak in the middle of the distribution
-    // E.g. If I have 5 items and pick 3 of them
-    // There are more possible arrangements compared to picking all 5 items (1 combination), or picking none of the items (1 combination)
+    // Combinations always have a peak in the middle of the symmetrical bell shaped distribution
+    // E.g. If I have 5 items and pick 3 of them there's a lot of combinations
+    // But if I pick 0 (none) of the items, there's only one solution
+    // Similarly if I pick 5 (all) of the items, there's only one solution
 
     // So we should be able to find the values of n and r which have more than 1000000, without calculating the full factorial for all of them
     // We just need to find the first instance and last, then count the number between too
